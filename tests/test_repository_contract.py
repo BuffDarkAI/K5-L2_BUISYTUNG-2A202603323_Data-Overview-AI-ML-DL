@@ -242,8 +242,8 @@ class RepositoryContractTest(unittest.TestCase):
     def test_colab_badge_opens_frozen_student_release(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         expected = (
-            "colab.research.google.com/github/VinUni-AI20k/Day1-Data-Overview-AI-ML-DL-Student/"
-            "blob/v1.0.2/notebooks/day1_understand_labels.ipynb"
+            "colab.research.google.com/github/VinUni-AI20k/K5-L2-Day1-Data-Overview-AI-ML-DL-Student/"
+            "blob/main/notebooks/day1_understand_labels.ipynb"
         )
         self.assertIn(expected, readme)
         self.assertIn("Phiên bản lớp", readme)

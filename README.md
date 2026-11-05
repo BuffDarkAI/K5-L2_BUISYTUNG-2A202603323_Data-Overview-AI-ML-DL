@@ -1,6 +1,6 @@
 # Bài thực hành Ngày 1 – Đọc prediction YOLO11 để hiểu định dạng nhãn
 
-[![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VinUni-AI20k/Day1-Data-Overview-AI-ML-DL-Student/blob/v1.0.2/notebooks/day1_understand_labels.ipynb)
+[![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VinUni-AI20k/K5-L2-Day1-Data-Overview-AI-ML-DL-Student/blob/main/notebooks/day1_understand_labels.ipynb)
 
 > **Trạng thái:** bản phát hành cho lớp; đánh giá formative. Tên repository dùng họ tên và MSSV để Lab
 > Coach đối chiếu bài nộp; không ghi thêm dữ liệu cá nhân vào báo cáo hoặc output.
@@ -78,7 +78,7 @@ lại bản đó, không tạo thêm bản sao.
 
 ![Repository chính thức với nhãn Public template](docs/screenshots/01-use-template-repository.png)
 
-> Xác nhận đúng tên `VinUni-AI20k/Day1-Data-Overview-AI-ML-DL-Student` và nhãn **Public template** như
+> Xác nhận đúng tên `VinUni-AI20k/K5-L2-Day1-Data-Overview-AI-ML-DL-Student` và nhãn **Public template** như
 > ảnh. Sau khi đăng nhập GitHub, nút **Use this template** nằm ở góc trên bên phải, cạnh Fork/Star.
 > Repository tạo từ template có lịch sử độc lập và thư mục `report/` sẵn sàng nhận bài. Không chọn
 > **Include all branches**.
