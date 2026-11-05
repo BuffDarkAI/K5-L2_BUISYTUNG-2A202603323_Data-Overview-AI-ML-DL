@@ -3,6 +3,8 @@
 > **Áp dụng cho bản Lab #1 này:** formative để học viên tự kiểm tra và GV phản hồi; không quy đổi sang
 > điểm chính thức, không đặt điểm đạt/điểm liệt, quality floor hoặc quyết định GO/NO-GO. Nếu học phần cần
 > ghi nhận hoàn thành, GV dùng Complete/Incomplete dựa trên evidence tối thiểu bên dưới.
+>
+> **Cách chấm:** mở **link repository** học viên nộp trên VLearn và đọc thư mục `report/`.
 
 | Năng lực quan sát | Đủ bằng chứng | Cần bổ sung | Chưa chứng minh |
 | --- | --- | --- | --- |
@@ -11,12 +13,14 @@
 | Instance segmentation | Đọc đúng instance, polygon và khác biệt với box | Có evidence nhưng chưa giải thích instance/biên | Đồng nhất polygon với box hoặc `instance_id` với class/track ID |
 | Guideline và QC | Đề xuất quy tắc có thể áp dụng; tách rule khỏi trường hợp cần escalation | Quy tắc còn mơ hồ hoặc chưa gắn với quan sát | Chép prediction thành rule hoặc tự quyết ca không đủ thông tin |
 | Vòng đời và an toàn | Nối đúng evidence qua guideline, ground truth, model, QC/rework; không có dữ liệu nhạy cảm | Thiếu một mắt xích hoặc quy tắc bảo vệ dữ liệu | Công khai dữ liệu không được phép hoặc không phân biệt các artifact |
-| Tái lập | Ghi package, checkpoint, sample/checksum, threshold, device và mọi thay đổi | Thiếu một vài trường có thể bổ sung | Không xác định được cấu hình tạo output |
+| Tái lập | Ghi package, checkpoint, sample/checksum hoặc `sample_id`, threshold, device và mọi thay đổi | Thiếu một vài trường có thể bổ sung | Không xác định được cấu hình tạo output |
 
 ## Evidence tối thiểu để nhận phản hồi
 
+Trên repository (thư mục `report/`):
+
 - `REPORT.md` có trích dẫn record từ cả ba JSON.
-- Ba JSON và ba PNG vượt qua ô validation cuối notebook.
+- Ba JSON và ba PNG khớp checklist trong báo cáo / ô validation notebook (`PASS`).
 - Có ít nhất một lỗi hoặc điểm mơ hồ được đối chiếu bằng mắt.
 - Có hành động riêng cho annotator và reviewer/QC.
 - Không có ảnh riêng, dữ liệu khách hàng/VinFast hoặc dữ liệu cá nhân không cần thiết trong bài công khai.

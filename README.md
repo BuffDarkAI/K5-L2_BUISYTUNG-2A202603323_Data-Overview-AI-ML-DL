@@ -1,17 +1,18 @@
-# Bài thực hành Ngày 1 – Đọc nhãn từ đầu ra YOLO11
+# Bài thực hành Ngày 1 – Đọc prediction YOLO11 để hiểu định dạng nhãn
 
 [![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VinUni-AI20k/Day1-Data-Overview-AI-ML-DL-Student/blob/v1.0.2/notebooks/day1_understand_labels.ipynb)
 
 > **Trạng thái:** bản phát hành cho lớp; đánh giá formative. Tên repository dùng họ tên và MSSV để Lab
 > Coach đối chiếu bài nộp; không ghi thêm dữ liệu cá nhân vào báo cáo hoặc output.
 > **Phiên bản lớp:** `v1.0.2`; chỉ đổi release giữa khóa khi GV/Lab Lead thông báo chính thức.
+> **Bài nộp:** repository GitHub có thư mục `report/`; chỉ nộp **link repo** trên VLearn.
 
 Đây là bài thực hành 60 phút về cách đọc **prediction** của một mô hình đã huấn luyện và suy ra loại
 **ground truth** mà một quy trình gán nhãn cần tạo. Bạn không huấn luyện mô hình và không coi prediction
 là sự thật.
 
 ```text
-ảnh công khai → model checkpoint → prediction → đối chiếu guideline → ground truth → QC/rework
+ảnh công khai → model checkpoint → prediction → đối chiếu guideline → hiểu định dạng ground truth
 ```
 
 ## Phạm vi Ngày 1
@@ -24,10 +25,10 @@ là sự thật.
 
 ## Tương thích Windows, macOS và Ubuntu
 
-Luồng chính chỉ dùng trình duyệt, Google Colab, Google Drive và GitHub Web nên giống nhau trên Windows,
+Luồng chính chỉ dùng trình duyệt, Google Colab và GitHub Web nên giống nhau trên Windows,
 macOS và Ubuntu. Không có lệnh cài đặt hệ thống, đường dẫn ổ đĩa cục bộ hoặc script riêng cho một hệ điều
 hành. Chrome và Edge là hai trình duyệt được ưu tiên; Firefox có thể dùng nếu đăng nhập Google/GitHub và
-upload cả thư mục hoạt động bình thường.
+upload thư mục hoạt động bình thường.
 
 ## Mục tiêu học tập
 
@@ -54,12 +55,12 @@ guideline nội bộ của VinFast.
 
 Bạn chưa cần cài Python, VS Code, Antigravity hoặc CVAT cho bài này. Trước giờ lab, kiểm tra đủ các mục:
 
-- [ ] Đăng nhập được tài khoản GitHub và tài khoản Google dùng cho Colab/Drive.
+- [ ] Đăng nhập được tài khoản GitHub và tài khoản Google dùng cho Colab.
 - [ ] Dùng Chrome hoặc Edge phiên bản mới và có kết nối Internet ổn định.
 - [ ] Biết mã khóa (`KHOA`, ví dụ `K4`), họ tên không dấu và MSSV để đặt tên repository bài làm.
 - [ ] Mở được repository do GV/Lab Coach cung cấp và nhìn thấy nút **Use this template**.
 - [ ] Không sử dụng ảnh cá nhân hoặc dữ liệu nội bộ; notebook đã có sẵn ảnh công khai cho bài lab.
-- [ ] Biết kênh hỏi hỗ trợ và kênh nộp link repository của lớp.
+- [ ] Biết kênh hỏi hỗ trợ và kênh nộp **link repository** của lớp.
 - [ ] Biết tên repository bắt buộc theo mẫu `<KHOA>-DAY01-HoVaTen-MSSV`; không thêm email, số điện thoại
   hoặc dữ liệu cá nhân khác.
 
@@ -97,79 +98,44 @@ Quay lại README và nhấn badge **Open in Colab** ở đầu trang. Khi noteb
 Nhấn **Run all** hoặc chạy lần lượt từng ô bằng nút `▶`. Không bỏ qua ô cài đặt, tải dữ liệu, kiểm tra
 checksum hoặc kiểm tra bằng chứng ở cuối. Nếu runtime bị ngắt giữa chừng, kết nối lại rồi chạy lại từ đầu.
 
-### Bước 4 — Đọc kết quả và hoàn thành báo cáo
+### Bước 4 — Làm `REPORT.md` trên máy, rồi upload trong Colab
 
-Trong panel **Files** bên trái Colab, mở các tệp JSON và PNG trong `day1_lab_outputs/`. Notebook tạo sẵn
-`REPORT.md`; mở tệp này, trả lời bằng bằng chứng từ cả ba tác vụ và tự đối chiếu
-[rubric formative](RUBRIC.md). Prediction của model không phải ground truth.
+Notebook **không** tự sinh báo cáo trống. Trong repo, mở
+[`reports/REPORT_TEMPLATE.md`](reports/REPORT_TEMPLATE.md), dựa vào JSON/PNG trong Colab để điền,
+lưu thành `REPORT.md` trên máy. Tự đối chiếu [rubric formative](RUBRIC.md).
 
-### Bước 5 — Tạo một ZIP trong Google Drive
+Trong notebook, chạy ô **Upload `REPORT.md`** và chọn đúng file đã làm xong.
 
-Ở ô cuối, thay `KHOA` bằng mã khóa rồi chạy ô. Chọn tài khoản Google và cho phép notebook kết nối Drive.
-Chỉ tải tệp `<KHOA>-DAY01-report.zip` đã tạo trong
-`MyDrive/AI20K-Day1/`; không cần tải riêng từng JSON hoặc PNG.
+### Bước 5 — Đóng ZIP và đưa lên repo
 
-### Bước 6 — Đưa bài vào `report/` của repository
+Chạy ô đóng ZIP (sau khi upload báo cáo). Ô kiểm tra rồi tải về **một** file
+`day1_report_for_upload.zip`.
 
-Giải nén ZIP trên máy. Trong repository tạo từ template, thư mục `report/` phải nhận trực tiếp hai mục
-`REPORT.md` và `day1_lab_outputs/`; không đưa nguyên ZIP và không giữ thêm thư mục bọc
-`<KHOA>-DAY01-.../`.
+Giải nén → thấy `REPORT.md` và `day1_lab_outputs/` → GitHub repo → thư mục `report/` →
+**Add file → Upload files** → kéo hai mục đó vào → **Commit changes**.
 
-- **Windows:** nhấp phải ZIP → **Extract All…** → mở thư mục vừa giải nén.
-- **macOS:** nhấp đúp ZIP trong Finder → mở thư mục cùng tên vừa tạo.
-- **Ubuntu:** nhấp phải ZIP → **Extract Here** (hoặc mở bằng Archive Manager) → mở thư mục vừa giải nén.
+ZIP chỉ để chuyển file; **không** nộp ZIP trên VLearn và **không** commit ZIP vào repo.
 
-Trên cả ba hệ điều hành, dùng GitHub Web ở bước tiếp theo; không cần mở terminal.
+Trên Windows / macOS / Ubuntu chỉ cần trình duyệt; không cần mở terminal.
 
-### Bước 7 — Commit, push và nộp link
+### Bước 6 — Kiểm tra repo và nộp link
 
-Chọn một trong hai cách:
+Tải lại trang GitHub, mở `report/` để kiểm tra đủ file rồi nộp **link repository bài làm** trên
+VLearn. Lab Coach đối chiếu tài khoản VLearn với `HoVaTen-MSSV` trong tên repository và chấm nội dung
+trong `report/`. Không thêm họ tên, MSSV vào `REPORT.md` hoặc output.
 
-- **GitHub Web — phù hợp Ngày 1:** mở thư mục `report/` trong repository của bạn →
-  **Add file → Upload files** → kéo
-  `REPORT.md` và cả thư mục `day1_lab_outputs/` vào vùng upload → chọn **Commit changes**.
-- **Git — nếu đã quen VS Code/terminal:** chạy ba lệnh ở phần [Cấu trúc bài nộp](#cấu-trúc-bài-nộp).
-
-Cuối cùng, tải lại trang GitHub, mở `report/` để kiểm tra đủ file rồi nộp **link repository bài làm** trên
-VLearn. Lab Coach đối chiếu tài khoản VLearn với `HoVaTen-MSSV` trong tên repository. Không thêm họ tên,
-MSSV vào tên ZIP, `REPORT.md` hoặc output.
+Nếu đã quen Git trên máy: giải nén vào `report/` rồi dùng lệnh ở phần
+[Cấu trúc bài nộp](#cấu-trúc-bài-nộp).
 
 Colab miễn phí không bảo đảm GPU hoặc giới hạn tài nguyên cố định. Bản lab dùng biến thể `n` để giảm thời
 gian tải/chạy trong lớp; cả ba tác vụ và cấu trúc prediction cần học vẫn giữ nguyên. Không tự đổi checkpoint,
 threshold hay mã nguồn; nếu có thay đổi theo hướng dẫn của GV, ghi lại trong báo cáo.
 
-## Từ Colab đến thư mục `report/`
-
-Ô cuối notebook dùng lệnh chính thức của Colab để mở Drive:
-
-```python
-from google.colab import drive
-drive.mount("/content/drive")
-```
-
-Sau khi bạn cho phép truy cập, notebook gom `REPORT.md` và toàn bộ `day1_lab_outputs/`, kiểm tra lại cấu
-trúc ZIP, rồi lưu vào:
-
-```text
-MyDrive/AI20K-Day1/<KHOA>-DAY01-report.zip
-```
-
-Tải **một tệp ZIP này** từ Google Drive và giải nén. ZIP chứa trực tiếp hai mục sau, không có thêm thư mục
-bọc bên ngoài:
-
-```text
-REPORT.md
-day1_lab_outputs/
-```
-
-Chép cả hai mục vào `report/` của repository tạo từ template. Không chép nguyên file ZIP vào repo và không chép riêng
-từng JSON/PNG từ panel Files của Colab.
-
 ## Cấu trúc bài nộp
 
-Tên repository dùng mẫu `<KHOA>-DAY01-HoVaTen-MSSV`; tên ZIP dùng `<KHOA>-DAY01-report.zip`; thư mục nhận
-bài luôn là `report/`. Họ tên và MSSV chỉ xuất hiện trong tên repository để đối chiếu với tài khoản VLearn.
-Không ghi chúng vào `REPORT.md`, JSON, PNG, attribution hoặc ZIP và không thêm email, số điện thoại hay dữ
+Tên repository dùng mẫu `<KHOA>-DAY01-HoVaTen-MSSV`; thư mục nhận bài luôn là `report/`. Họ tên và MSSV chỉ
+xuất hiện trong tên repository để đối chiếu với tài khoản VLearn.
+Không ghi chúng vào `REPORT.md`, JSON, PNG hoặc attribution và không thêm email, số điện thoại hay dữ
 liệu cá nhân khác.
 
 ```text
@@ -187,8 +153,7 @@ liệu cá nhân khác.
             └── segmentation_prediction.png
 ```
 
-Ví dụ repository: `K4-DAY01-NguyenVanAn-12345678`. Ví dụ ZIP: `K4-DAY01-report.zip`. Sau khi giải nén,
-`report/` phải có cấu trúc như trên.
+Ví dụ repository: `K4-DAY01-NguyenVanAn-12345678`. Lab Coach chấm bằng cách mở link repo này.
 Nếu VLearn quy định khóa/prefix hoặc kênh nộp khác, ưu tiên yêu cầu chính thức.
 
 Lệnh Git tối thiểu sau khi đã chép đúng nội dung:
@@ -209,9 +174,10 @@ git push
 | Tải ảnh/model lỗi hoặc báo sai checksum | Kiểm tra Internet, restart session và chạy lại. Không xóa hoặc bỏ qua bước checksum. |
 | Runtime bị ngắt hoặc mất kết nối | Nhấn **Reconnect**, sau đó chạy lại notebook từ đầu để tránh output cũ/thiếu. |
 | Không thấy `REPORT.md` hoặc `day1_lab_outputs/` | Chạy lại từ đầu và đọc lỗi ở ô kiểm tra bằng chứng. Không tự tạo file rỗng để thay thế. |
-| Không thấy ZIP trong Google Drive | Kiểm tra đã chạy ô cuối, đã cấp quyền Drive và đã thay đúng `KHOA`; sau đó mở `MyDrive/AI20K-Day1/`. |
-| ZIP có thêm thư mục bọc hoặc thiếu file | Không tự đóng gói lại. Chạy lại ô cuối của notebook và dùng đúng ZIP notebook vừa tạo. |
-| GitHub chỉ có file ZIP, không thấy các file báo cáo | Xóa ZIP khỏi thay đổi chưa commit, giải nén rồi đưa trực tiếp `REPORT.md` và `day1_lab_outputs/` vào `report/`. |
+| Ô upload báo thiếu / chưa chọn file | Chạy lại ô Upload và chọn `REPORT.md` đã làm xong trên máy. |
+| Ô báo `REPORT.md` còn trùng mẫu trống | Bạn upload nhầm bản chưa điền. Điền xong rồi upload lại. |
+| GitHub thiếu JSON/PNG trong `report/` | Upload lại cả thư mục `day1_lab_outputs/`; không chỉ upload `REPORT.md`. |
+| GitHub có thêm file ZIP hoặc thư mục bọc | Xóa ZIP/thư mục bọc khỏi `report/`; chỉ giữ `REPORT.md` và `day1_lab_outputs/` trực tiếp. |
 | Không upload được thư mục qua GitHub Web | Mở đúng `report/`, kéo thả cả thư mục vào vùng upload. Nếu trình duyệt vẫn chặn, dùng Git hoặc nhờ Lab Coach hỗ trợ. |
 | `git push` bị từ chối quyền | Kiểm tra remote đang trỏ tới repository tạo từ template thuộc tài khoản của bạn; đăng nhập lại GitHub nếu cần. |
 | Lỡ đưa dữ liệu cá nhân vào báo cáo/output | Giữ định danh bắt buộc ở tên repository, xóa dữ liệu cá nhân khỏi `REPORT.md` và output trước khi nộp link; nếu đã push, báo GV/Lab Coach. |
@@ -234,10 +200,10 @@ Coach. Không gửi password, token GitHub hoặc mã xác thực Google.
 
 | Tệp | Dùng để làm gì |
 | --- | --- |
-| `notebooks/day1_understand_labels.ipynb` | chạy ba tác vụ, tạo evidence và đóng gói bài nộp lên Drive |
+| `notebooks/day1_understand_labels.ipynb` | chạy ba tác vụ, tạo evidence và hướng dẫn đưa bài vào repo |
 | `GUIDE.md` | đọc output và xử lý lỗi thường gặp |
-| `reports/REPORT_TEMPLATE.md` | mẫu báo cáo cá nhân |
-| `report/` | thư mục học viên đưa nội dung ZIP vào rồi commit/push |
+| `reports/REPORT_TEMPLATE.md` | mẫu báo cáo; học viên điền rồi upload `REPORT.md` lên Colab |
+| `report/` | thư mục học viên đưa `REPORT.md` + `day1_lab_outputs/` vào rồi commit/push |
 | `RUBRIC.md` | tự kiểm tra formative; không phải ngưỡng đạt chính thức |
 | `requirements.txt` | phiên bản Ultralytics đã ghim cho lần phát hành này |
 | `tests/test_repository_contract.py` | kiểm tra tên tệp và hợp đồng notebook |

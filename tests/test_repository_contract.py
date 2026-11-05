@@ -1,17 +1,10 @@
 import ast
 import hashlib
 import json
-import os
 import re
-import shutil
 import subprocess
-import sys
-import tempfile
-import types
 import unittest
-import zipfile
 from pathlib import Path
-from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -70,11 +63,12 @@ class RepositoryContractTest(unittest.TestCase):
             "detection_predictions.png",
             "segmentation_prediction.png",
             "IMAGE_ATTRIBUTION.md",
-            "day1_lab_outputs.zip",
         }
         for value in expected_models | expected_outputs:
             with self.subTest(value=value):
                 self.assertIn(value, self.all_source)
+        self.assertNotIn("day1_lab_outputs.zip", self.all_source)
+        self.assertNotIn("DAY01-report.zip", self.all_source)
 
     def test_asset_manifests_have_fixed_sha256_values(self):
         checksums = set(re.findall(r'"sha256": "([0-9a-f]{64})"', self.code_source))
@@ -89,29 +83,23 @@ class RepositoryContractTest(unittest.TestCase):
         self.assertIn("Checksum sai", self.code_source)
         self.assertEqual(self.code_source.count('"license_url": "https://creativecommons.org/licenses/by/2.0/"'), 3)
 
-    def test_report_template_is_prepared_without_overwriting_student_work(self):
+    def test_report_template_is_not_auto_created_students_must_upload(self):
         self.assertIn("REPORT_TEMPLATE_ASSET", self.code_source)
+        self.assertNotIn("REPORT_TEMPLATE_B64", self.code_source)
+        self.assertNotIn("REPORT_TEMPLATE_TEXT", self.code_source)
+        self.assertNotIn("REPORT_PATH.write_text", self.code_source)
         report_template_sha256 = hashlib.sha256(
             (ROOT / "reports" / "REPORT_TEMPLATE.md").read_bytes()
         ).hexdigest()
-        self.assertIn(
-            report_template_sha256,
-            self.code_source,
-        )
+        self.assertIn(report_template_sha256, self.code_source)
         self.assertRegex(
             self.code_source,
             r'REPORT_TEMPLATE_ASSET = \{\s*"url": "https://raw\.githubusercontent\.com/'
-            r'[^\"]+/[0-9a-f]{7,40}/reports/REPORT_TEMPLATE\.md"',
+            r'[^\"]+/reports/REPORT_TEMPLATE\.md"',
         )
-        self.assertIn(
-            "https://raw.githubusercontent.com/VinUni-AI20k/"
-            "Day1-Data-Overview-AI-ML-DL-Student/"
-            "372b90e8e867530e559eed0424d4a594ec74163c/"
-            "reports/REPORT_TEMPLATE.md",
-            self.code_source,
-        )
-        self.assertIn("if not REPORT_PATH.exists()", self.code_source)
-        self.assertIn("Giữ nguyên REPORT.md hiện có", self.code_source)
+        self.assertIn("ô Upload", self.all_source)
+        self.assertIn("colab_files.upload()", self.code_source)
+        self.assertIn("upload", self.code_source.lower())
         self.assertIn('target.with_name(f".{target.name}.download")', self.code_source)
         self.assertIn("temporary_target.replace(target)", self.code_source)
 
@@ -128,9 +116,12 @@ class RepositoryContractTest(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         report = (ROOT / "reports" / "REPORT_TEMPLATE.md").read_text(encoding="utf-8")
         self.assertIn("<KHOA>-DAY01-HoVaTen-MSSV", readme)
-        self.assertIn("Họ tên và MSSV chỉ xuất hiện trong tên repository", readme)
+        self.assertIn("Họ tên và MSSV chỉ", readme)
+        self.assertIn("xuất hiện trong tên repository", readme)
         for document in (readme, report):
-            self.assertIn("<KHOA>-DAY01-report.zip", document)
+            self.assertIn("link", document.lower())
+            self.assertIn("report/", document)
+            self.assertNotIn("<KHOA>-DAY01-report.zip", document)
             self.assertNotIn("**Họ và tên:**", document)
             self.assertNotIn("**MSSV:**", document)
         self.assertNotIn("HO_VA_TEN_KHONG_DAU", self.code_source)
@@ -146,6 +137,7 @@ class RepositoryContractTest(unittest.TestCase):
         self.assertIn("git add report", readme)
         self.assertIn("commit", readme)
         self.assertIn("push", readme)
+        self.assertIn("link repository", readme.lower())
 
     def test_report_evidence_is_not_ignored_by_git(self):
         runtime_output = subprocess.run(
@@ -165,133 +157,65 @@ class RepositoryContractTest(unittest.TestCase):
         self.assertEqual(runtime_output.returncode, 0, runtime_output.stderr)
         self.assertEqual(submitted_output.returncode, 1, submitted_output.stdout)
 
-    def test_colab_packages_one_complete_submission_zip_in_drive(self):
+    def test_repo_submission_check_replaces_drive_zip_flow(self):
         cell_ids = [cell.get("id") for cell in self.notebook["cells"]]
+        self.assertIn("report-upload", cell_ids)
+        self.assertIn("repo-submission-intro", cell_ids)
+        self.assertIn("repo-submission-check", cell_ids)
         self.assertGreater(
-            cell_ids.index("drive-submission-package"),
+            cell_ids.index("report-upload"),
             cell_ids.index("validate-and-archive"),
         )
+        self.assertGreater(
+            cell_ids.index("repo-submission-check"),
+            cell_ids.index("report-upload"),
+        )
+        self.assertNotIn("drive-submission-package", cell_ids)
         for value in (
             'from google.colab import drive',
             'drive.mount("/content/drive")',
             '/content/drive/MyDrive/AI20K-Day1',
             'submission_name = f"{KHOA}-DAY01-report"',
-            'shutil.copy2(REPORT_PATH',
-            'shutil.copytree(OUTPUT_DIR',
-            'root_dir=submission_dir',
-            'zipfile.ZipFile(path)',
-            'archive.testzip()',
-            'pending_drive_path.replace(submission_archive_path)',
-            'SKIP: ô lưu Google Drive chỉ chạy trong Colab',
         ):
             with self.subTest(value=value):
-                self.assertIn(value, self.code_source)
-        package_source = "".join(
+                self.assertNotIn(value, self.code_source)
+
+        upload_source = "".join(
             next(
                 cell["source"]
                 for cell in self.notebook["cells"]
-                if cell.get("id") == "drive-submission-package"
+                if cell.get("id") == "report-upload"
             )
         )
-        self.assertIn('"REPORT.md"', package_source)
-        self.assertNotIn('f"{submission_name}/REPORT.md"', package_source)
+        self.assertIn("colab_files.upload()", upload_source)
+        self.assertIn("EMPTY_TEMPLATE_SHA256", upload_source)
+        self.assertIn("report_sha256 == EMPTY_TEMPLATE_SHA256", upload_source)
+        self.assertIn("MẪU TRỐNG", upload_source)
+        self.assertNotIn("REPORT_PATH.write_text(REPORT_TEMPLATE", upload_source)
 
-    def test_submission_zip_has_repo_ready_root_layout(self):
-        package_source = "".join(
+        check_source = "".join(
             next(
                 cell["source"]
                 for cell in self.notebook["cells"]
-                if cell.get("id") == "drive-submission-package"
+                if cell.get("id") == "repo-submission-check"
             )
         )
-        package_source = package_source.replace('KHOA = "KX"', 'KHOA = "K4"')
-
-        with tempfile.TemporaryDirectory(prefix="day1-submission-test-") as temporary_directory:
-            test_root = Path(temporary_directory)
-            output_dir = test_root / "day1_lab_outputs"
-            visual_dir = output_dir / "visuals"
-            visual_dir.mkdir(parents=True)
-            json_names = {
-                "classification_predictions.json",
-                "detection_predictions.json",
-                "segmentation_predictions.json",
-            }
-            png_names = {
-                "visuals/classification_top5.png",
-                "visuals/detection_predictions.png",
-                "visuals/segmentation_prediction.png",
-            }
-            for filename in {"IMAGE_ATTRIBUTION.md", *json_names, *png_names}:
-                target = output_dir / filename
-                target.parent.mkdir(parents=True, exist_ok=True)
-                target.write_bytes(b"test evidence")
-
-            report_path = test_root / "REPORT.md"
-            report_path.write_text(
-                "# Báo cáo đã hoàn thành\n\nDẫn chứng: sample-001.\n",
-                encoding="utf-8",
+        self.assertIn("day1_report_for_upload.zip", check_source)
+        self.assertIn("files.download", check_source)
+        self.assertIn("nộp link repo", check_source)
+        self.assertNotIn("REPO_URL", check_source)
+        self.assertNotIn("DAY01-report.zip", check_source)
+        self.assertNotIn("getpass", check_source)
+        intro = "".join(
+            next(
+                cell["source"]
+                for cell in self.notebook["cells"]
+                if cell.get("id") == "repo-submission-intro"
             )
-            drive_output_dir = test_root / "drive" / "MyDrive" / "AI20K-Day1"
-            package_source = package_source.replace(
-                "/content/drive/MyDrive/AI20K-Day1",
-                str(drive_output_dir),
-            )
-
-            class FakeDrive:
-                def __init__(self):
-                    self.mount_calls = []
-
-                def mount(self, path):
-                    self.mount_calls.append(path)
-
-            fake_drive = FakeDrive()
-            google_module = types.ModuleType("google")
-            colab_module = types.ModuleType("google.colab")
-            colab_module.drive = fake_drive
-            google_module.colab = colab_module
-            namespace = {
-                "Path": Path,
-                "OUTPUT_DIR": output_dir,
-                "REPORT_PATH": report_path,
-                "REPORT_TEMPLATE_ASSET": {"sha256": "0" * 64},
-                "sha256_file": lambda path: hashlib.sha256(path.read_bytes()).hexdigest(),
-                "re": re,
-                "required_json": {name: {} for name in json_names},
-                "required_png": list(png_names),
-                "shutil": shutil,
-                "zipfile": zipfile,
-            }
-            previous_directory = Path.cwd()
-            try:
-                os.chdir(test_root)
-                with patch.dict(
-                    sys.modules,
-                    {"google": google_module, "google.colab": colab_module},
-                ):
-                    exec(
-                        compile(package_source, "drive-submission-package", "exec"),
-                        namespace,
-                    )
-            finally:
-                os.chdir(previous_directory)
-
-            archive_path = Path(namespace["submission_archive_path"])
-            with zipfile.ZipFile(archive_path) as archive:
-                actual_files = {
-                    item.filename for item in archive.infolist() if not item.is_dir()
-                }
-                bad_member = archive.testzip()
-            expected_files = {
-                "REPORT.md",
-                "day1_lab_outputs/IMAGE_ATTRIBUTION.md",
-                *(f"day1_lab_outputs/{name}" for name in json_names),
-                *(f"day1_lab_outputs/{name}" for name in png_names),
-            }
-            self.assertIsNone(bad_member)
-            self.assertEqual(actual_files, expected_files)
-            self.assertEqual(archive_path.name, "K4-DAY01-report.zip")
-            self.assertEqual(fake_drive.mount_calls, ["/content/drive"])
-            self.assertFalse((test_root / "day1_submission_staging").exists())
+        )
+        self.assertIn("Upload files", intro)
+        self.assertIn("day1_report_for_upload.zip", intro)
+        self.assertIn("link repo", intro)
 
     def test_output_records_include_provenance_and_coordinate_context(self):
         for field in (
@@ -306,11 +230,11 @@ class RepositoryContractTest(unittest.TestCase):
                 self.assertIn(f'"{field}"', self.code_source)
         self.assertIn('f"{sample_id}-{index + 1:03d}"', self.code_source)
 
-    def test_notebook_validates_evidence_before_archiving(self):
+    def test_notebook_validates_evidence_without_zip_archive(self):
         validation_position = self.code_source.index("required_json =")
-        archive_position = self.code_source.index("shutil.make_archive")
-        self.assertLess(validation_position, archive_position)
-        self.assertIn("PASS: đủ", self.code_source)
+        pass_position = self.code_source.index("PASS: đủ")
+        self.assertLess(validation_position, pass_position)
+        self.assertNotIn("shutil.make_archive", self.code_source)
         self.assertIn("for row_number, row in enumerate(rows, start=1)", self.code_source)
         self.assertIn("Image.open(path)", self.code_source)
         self.assertIn("expected_samples", self.code_source)
@@ -379,6 +303,19 @@ class RepositoryContractTest(unittest.TestCase):
         self.assertIn("formative", rubric)
         self.assertNotIn("100 điểm", rubric)
         self.assertNotIn("59 điểm", rubric)
+        self.assertIn("Mở file:", report)
+        self.assertIn("Escalation", report)
+        self.assertIn("sample_id = traffic", report)
+        self.assertIn("sample_id = kitchen", report)
+        self.assertIn("link repository", rubric.lower())
+
+    def test_notebook_teaches_before_asking_report_questions(self):
+        self.assertIn("Đọc prediction YOLO11 để hiểu định dạng nhãn", self.all_source)
+        self.assertIn("Thuật ngữ ngắn", self.all_source)
+        self.assertIn("top-1 có thể trông", self.all_source)
+        self.assertIn("sample_id=traffic", self.all_source)
+        self.assertIn("class ID hay tracking ID", self.all_source)
+        self.assertIn("nộp **link repo**", self.all_source)
 
 
 if __name__ == "__main__":
