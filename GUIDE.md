@@ -106,4 +106,4 @@ Trả lời bằng evidence từ JSON/PNG; không chép đáp án có sẵn vì 
 - [ ] Ghi lại mọi thay đổi về code, checkpoint, threshold và môi trường.
 - [ ] Có `IMAGE_ATTRIBUTION.md` trong output; họ tên/MSSV chỉ nằm ở tên repository, không nằm trong output.
 - [ ] `report/` trên GitHub có trực tiếp `REPORT.md` và `day1_lab_outputs/`.
-- [ ] Đã commit, push và nộp **link repository** trên VLearn.
+- [ ] Đã commit, push và nộp **link repository** trên LMS.

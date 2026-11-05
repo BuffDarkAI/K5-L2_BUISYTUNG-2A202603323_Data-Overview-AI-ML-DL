@@ -7,7 +7,7 @@
 > **Trạng thái:** bản phát hành cho lớp; đánh giá formative. Tên repository dùng họ tên và MSSV để Lab
 > Coach đối chiếu bài nộp; không ghi thêm dữ liệu cá nhân vào báo cáo hoặc output.
 > **Phiên bản lớp:** `v1.0.3`; chỉ đổi release giữa khóa khi GV/Lab Lead thông báo chính thức.
-> **Bài nộp:** repository GitHub có thư mục `report/`; chỉ nộp **link repo** trên VLearn.
+> **Bài nộp:** repository GitHub có thư mục `report/`; chỉ nộp **link repo** trên LMS.
 > Nếu Colab mở bản cũ (còn mục Drive ZIP), đóng tab đó và mở lại bằng link `v1.0.3` ở trên, rồi nhấn **Copy to Drive**.
 
 Đây là bài thực hành 60 phút về cách đọc **prediction** của một mô hình đã huấn luyện và suy ra loại
@@ -117,14 +117,14 @@ Chạy ô đóng ZIP (sau khi upload báo cáo). Ô kiểm tra rồi tải về 
 Giải nén → thấy `REPORT.md` và `day1_lab_outputs/` → GitHub repo → thư mục `report/` →
 **Add file → Upload files** → kéo hai mục đó vào → **Commit changes**.
 
-ZIP chỉ để chuyển file; **không** nộp ZIP trên VLearn và **không** commit ZIP vào repo.
+ZIP chỉ để chuyển file; **không** nộp ZIP trên LMS và **không** commit ZIP vào repo.
 
 Trên Windows / macOS / Ubuntu chỉ cần trình duyệt; không cần mở terminal.
 
 ### Bước 6 — Kiểm tra repo và nộp link
 
 Tải lại trang GitHub, mở `report/` để kiểm tra đủ file rồi nộp **link repository bài làm** trên
-VLearn. Lab Coach đối chiếu tài khoản VLearn với `HoVaTen-MSSV` trong tên repository và chấm nội dung
+LMS. Lab Coach đối chiếu tài khoản LMS với `HoVaTen-MSSV` trong tên repository và chấm nội dung
 trong `report/`. Không thêm họ tên, MSSV vào `REPORT.md` hoặc output.
 
 Nếu đã quen Git trên máy: giải nén vào `report/` rồi dùng lệnh ở phần
@@ -137,7 +137,7 @@ threshold hay mã nguồn; nếu có thay đổi theo hướng dẫn của GV, g
 ## Cấu trúc bài nộp
 
 Tên repository dùng mẫu `<KHOA>-DAY01-HoVaTen-MSSV`; thư mục nhận bài luôn là `report/`. Họ tên và MSSV chỉ
-xuất hiện trong tên repository để đối chiếu với tài khoản VLearn.
+xuất hiện trong tên repository để đối chiếu với tài khoản LMS.
 Không ghi chúng vào `REPORT.md`, JSON, PNG hoặc attribution và không thêm email, số điện thoại hay dữ
 liệu cá nhân khác.
 
@@ -157,7 +157,7 @@ liệu cá nhân khác.
 ```
 
 Ví dụ repository: `K4-DAY01-NguyenVanAn-12345678`. Lab Coach chấm bằng cách mở link repo này.
-Nếu VLearn quy định khóa/prefix hoặc kênh nộp khác, ưu tiên yêu cầu chính thức.
+Nếu LMS quy định khóa/prefix hoặc kênh nộp khác, ưu tiên yêu cầu chính thức.
 
 Lệnh Git tối thiểu sau khi đã chép đúng nội dung:
 

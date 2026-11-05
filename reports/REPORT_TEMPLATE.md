@@ -14,7 +14,7 @@
 
 > **Cách dùng mẫu này:** copy/điền trên máy, lưu thành `REPORT.md`, rồi **upload** vào panel Files
 > của Colab (notebook không tự tạo file này). Ô cuối Colab sẽ đóng ZIP cùng `day1_lab_outputs/`.
-> Giải nén và đưa vào `report/` trên GitHub, rồi nộp **link repo** trên VLearn.
+> Giải nén và đưa vào `report/` trên GitHub, rồi nộp **link repo** trên LMS.
 > Không ghi họ tên, MSSV, email, số điện thoại hoặc dữ liệu cá nhân khác vào báo cáo/output;
 > họ tên/MSSV chỉ nằm trong tên repository.
 
@@ -101,4 +101,4 @@ Kiểm tra trên GitHub trong thư mục `report/`:
 - [ ] `day1_lab_outputs/visuals/segmentation_prediction.png`
 - [ ] Ô validation cuối notebook báo `PASS`
 - [ ] Không có họ tên, MSSV hoặc dữ liệu nhạy cảm trong báo cáo/output
-- [ ] Đã nộp **link repository** trên VLearn
+- [ ] Đã nộp **link repository** trên LMS

@@ -4,7 +4,7 @@
 > điểm chính thức, không đặt điểm đạt/điểm liệt, quality floor hoặc quyết định GO/NO-GO. Nếu học phần cần
 > ghi nhận hoàn thành, GV dùng Complete/Incomplete dựa trên evidence tối thiểu bên dưới.
 >
-> **Cách chấm:** mở **link repository** học viên nộp trên VLearn và đọc thư mục `report/`.
+> **Cách chấm:** mở **link repository** học viên nộp trên LMS và đọc thư mục `report/`.
 
 | Năng lực quan sát | Đủ bằng chứng | Cần bổ sung | Chưa chứng minh |
 | --- | --- | --- | --- |
