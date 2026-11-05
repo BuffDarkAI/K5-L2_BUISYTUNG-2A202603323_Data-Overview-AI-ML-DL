@@ -1,11 +1,14 @@
 # Bài thực hành Ngày 1 – Đọc prediction YOLO11 để hiểu định dạng nhãn
 
-[![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VinUni-AI20k/K5-L2-Day1-Data-Overview-AI-ML-DL-Student/blob/main/notebooks/day1_understand_labels.ipynb)
+<a href="https://colab.research.google.com/github/VinUni-AI20k/K5-L2-Day1-Data-Overview-AI-ML-DL-Student/blob/v1.0.3/notebooks/day1_understand_labels.ipynb" target="_blank" rel="noopener noreferrer"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+[Mở notebook `day1_understand_labels.ipynb` trên Colab (K5-L2 / v1.0.3)](https://colab.research.google.com/github/VinUni-AI20k/K5-L2-Day1-Data-Overview-AI-ML-DL-Student/blob/v1.0.3/notebooks/day1_understand_labels.ipynb)
 
 > **Trạng thái:** bản phát hành cho lớp; đánh giá formative. Tên repository dùng họ tên và MSSV để Lab
 > Coach đối chiếu bài nộp; không ghi thêm dữ liệu cá nhân vào báo cáo hoặc output.
-> **Phiên bản lớp:** `v1.0.2`; chỉ đổi release giữa khóa khi GV/Lab Lead thông báo chính thức.
+> **Phiên bản lớp:** `v1.0.3`; chỉ đổi release giữa khóa khi GV/Lab Lead thông báo chính thức.
 > **Bài nộp:** repository GitHub có thư mục `report/`; chỉ nộp **link repo** trên VLearn.
+> Nếu Colab mở bản cũ (còn mục Drive ZIP), đóng tab đó và mở lại bằng link `v1.0.3` ở trên, rồi nhấn **Copy to Drive**.
 
 Đây là bài thực hành 60 phút về cách đọc **prediction** của một mô hình đã huấn luyện và suy ra loại
 **ground truth** mà một quy trình gán nhãn cần tạo. Bạn không huấn luyện mô hình và không coi prediction

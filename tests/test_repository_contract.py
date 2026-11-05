@@ -243,10 +243,11 @@ class RepositoryContractTest(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         expected = (
             "colab.research.google.com/github/VinUni-AI20k/K5-L2-Day1-Data-Overview-AI-ML-DL-Student/"
-            "blob/main/notebooks/day1_understand_labels.ipynb"
+            "blob/v1.0.3/notebooks/day1_understand_labels.ipynb"
         )
         self.assertIn(expected, readme)
         self.assertIn("Phiên bản lớp", readme)
+        self.assertIn("`v1.0.3`", readme)
 
     def test_student_repository_is_documented_as_a_template(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
