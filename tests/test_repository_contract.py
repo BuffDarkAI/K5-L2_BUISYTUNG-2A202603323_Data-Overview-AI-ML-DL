@@ -115,7 +115,7 @@ class RepositoryContractTest(unittest.TestCase):
     def test_submission_contract_keeps_identity_out_of_artifacts(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         report = (ROOT / "reports" / "REPORT_TEMPLATE.md").read_text(encoding="utf-8")
-        self.assertIn("<KHOA>-DAY01-HoVaTen-MSSV", readme)
+        self.assertIn("<KHOA>-L2-DAY01-HoVaTen-MSSV-Data-Overview-AI-ML-DL", readme)
         self.assertIn("Họ tên và MSSV chỉ", readme)
         self.assertIn("xuất hiện trong tên repository", readme)
         for document in (readme, report):

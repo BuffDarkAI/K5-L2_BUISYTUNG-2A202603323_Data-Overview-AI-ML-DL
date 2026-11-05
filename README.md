@@ -60,11 +60,11 @@ Bạn chưa cần cài Python, VS Code, Antigravity hoặc CVAT cho bài này. T
 
 - [ ] Đăng nhập được tài khoản GitHub và tài khoản Google dùng cho Colab.
 - [ ] Dùng Chrome hoặc Edge phiên bản mới và có kết nối Internet ổn định.
-- [ ] Biết mã khóa (`KHOA`, ví dụ `K4`), họ tên không dấu và MSSV để đặt tên repository bài làm.
+- [ ] Biết mã khóa (`KHOA`, ví dụ `K4`), họ tên không dấu, MSSV và tên bài (`Data-Overview-AI-ML-DL`) để đặt tên repository bài làm.
 - [ ] Mở được repository do GV/Lab Coach cung cấp và nhìn thấy nút **Use this template**.
 - [ ] Không sử dụng ảnh cá nhân hoặc dữ liệu nội bộ; notebook đã có sẵn ảnh công khai cho bài lab.
 - [ ] Biết kênh hỏi hỗ trợ và kênh nộp **link repository** của lớp.
-- [ ] Biết tên repository bắt buộc theo mẫu `<KHOA>-DAY01-HoVaTen-MSSV`; không thêm email, số điện thoại
+- [ ] Biết tên repository bắt buộc theo mẫu `<KHOA>-L2-DAY01-HoVaTen-MSSV-Data-Overview-AI-ML-DL`; không thêm email, số điện thoại
   hoặc dữ liệu cá nhân khác.
 
 Nếu thiếu tài khoản hoặc không mở được repository, báo Lab Coach trước khi chạy bài.
@@ -74,10 +74,10 @@ Nếu thiếu tài khoản hoặc không mở được repository, báo Lab Coac
 ### Bước 1 — Tạo repository bài làm từ template
 
 Mở repository bằng link do GV/Lab Coach cung cấp, nhấn **Use this template → Create a new repository**.
-Chọn tài khoản GitHub của bạn làm owner, đặt tên theo mẫu `<KHOA>-DAY01-HoVaTen-MSSV` và chọn **Public** để
-Lab Coach mở được link nộp. Thay `<KHOA>` bằng mã khóa của bạn, ví dụ
-`K4-DAY01-NguyenVanAn-12345678`. Chỉ lấy branch mặc định `main`. Nếu đã tạo repository cho bài này thì dùng
-lại bản đó, không tạo thêm bản sao.
+Chọn tài khoản GitHub của bạn làm owner, đặt tên theo mẫu
+`<KHOA>-L2-DAY01-HoVaTen-MSSV-Data-Overview-AI-ML-DL` và chọn **Public** để Lab Coach mở được link nộp.
+Thay `<KHOA>` bằng mã khóa của bạn, ví dụ `K4-L2-DAY01-NguyenVanAn-12345678-Data-Overview-AI-ML-DL`.
+Chỉ lấy branch mặc định `main`. Nếu đã tạo repository cho bài này thì dùng lại bản đó, không tạo thêm bản sao.
 
 ![Repository chính thức với nhãn Public template](docs/screenshots/01-use-template-repository.png)
 
@@ -136,13 +136,13 @@ threshold hay mã nguồn; nếu có thay đổi theo hướng dẫn của GV, g
 
 ## Cấu trúc bài nộp
 
-Tên repository dùng mẫu `<KHOA>-DAY01-HoVaTen-MSSV`; thư mục nhận bài luôn là `report/`. Họ tên và MSSV chỉ
-xuất hiện trong tên repository để đối chiếu với tài khoản LMS.
+Tên repository dùng mẫu `<KHOA>-L2-DAY01-HoVaTen-MSSV-Data-Overview-AI-ML-DL`; thư mục nhận bài luôn là
+`report/`. Họ tên và MSSV chỉ xuất hiện trong tên repository để đối chiếu với tài khoản LMS.
 Không ghi chúng vào `REPORT.md`, JSON, PNG hoặc attribution và không thêm email, số điện thoại hay dữ
 liệu cá nhân khác.
 
 ```text
-<KHOA>-DAY01-HoVaTen-MSSV/
+<KHOA>-L2-DAY01-HoVaTen-MSSV-Data-Overview-AI-ML-DL/
 └── report/
     ├── REPORT.md
     └── day1_lab_outputs/
@@ -156,7 +156,7 @@ liệu cá nhân khác.
             └── segmentation_prediction.png
 ```
 
-Ví dụ repository: `K4-DAY01-NguyenVanAn-12345678`. Lab Coach chấm bằng cách mở link repo này.
+Ví dụ repository: `K4-L2-DAY01-NguyenVanAn-12345678-Data-Overview-AI-ML-DL`. Lab Coach chấm bằng cách mở link repo này.
 Nếu LMS quy định khóa/prefix hoặc kênh nộp khác, ưu tiên yêu cầu chính thức.
 
 Lệnh Git tối thiểu sau khi đã chép đúng nội dung:

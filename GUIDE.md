@@ -13,7 +13,7 @@ Preflight:
 
 - [ ] Đã mở notebook từ repository nguồn bằng Colab và nhấn **Copy to Drive**.
 - [ ] Biết điền `REPORT.md` từ `reports/REPORT_TEMPLATE.md` trên máy, rồi dùng ô Upload trong notebook.
-- [ ] Không đưa ảnh hoặc dữ liệu nhạy cảm vào Colab; tên repository chỉ chứa họ tên và MSSV bắt buộc.
+- [ ] Không đưa ảnh hoặc dữ liệu nhạy cảm vào Colab; tên repository theo mẫu `<KHOA>-L2-DAY01-HoVaTen-MSSV-Data-Overview-AI-ML-DL`.
 - [ ] Đã tạo repository bài làm từ template và biết thư mục nộp bài là `report/`.
 - [ ] Biết cách upload thư mục lên GitHub Web (hoặc dùng Git nếu đã quen).
 
