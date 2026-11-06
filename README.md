@@ -222,3 +222,5 @@ output. Mã nguồn và tài liệu do repository sở hữu được phát hàn
 [AGPL-3.0-only](LICENSE); thành phần bên thứ ba giữ nguyên license riêng trong
 [third-party notice](THIRD_PARTY_NOTICES.md). Repository này không tuyên bố phù hợp tiêu chuẩn ISO hoặc
 quy trình production của VinFast.
+#   K 5 - L 2 _ B U I S Y T U N G - 2 A 2 0 2 6 0 3 3 2 3 _ D a t a - O v e r v i e w - A I - M L - D L  
+ 
